@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ENSU Mounting Technology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===================== 全局初始化 ===================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        button {
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===================== 顶部导航Header（与各页一致） ===================== */
+        header {
+            position: relative;             /* 移动端下拉菜单的定位参照 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 48px;
+            background: #ffffff;
+        }
+        .logo-group {
+            line-height: 1;
+        }
+        .logo-main {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0099cc;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #556677;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        nav ul {
+            display: flex;
+            gap: 34px;
+        }
+        nav a {
+            color: #425a6b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #0099cc;
+        }
+        nav a.active {
+            color: #0099cc;
+            font-weight: 700;
+        }
+        .btn-quote-top {
+            background-color: #00b1d9;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .btn-quote-top:hover {
+            background: #009cbf;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #425a6b;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* ===================== 产品介绍页面 ===================== */
+        .prod-section {
+            background: #E8F1FF;           /* 与其它页背景一致（浅蓝） */
+            padding: 28px 140px 80px;      /* 左右留白，与 manufacturing 页一致 */
+        }
+        /* 页面大标题 */
+        .prod-title {
+            font-size: 68px;
+            font-weight: 800;
+            line-height: 1;
+            color: #12344d;
+            letter-spacing: -1px;
+        }
+
+        /* ---------- 产品主视觉区（左图 + 右文 + 三关键参数） ---------- */
+        .prod-hero {
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            margin-top: 44px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 40px;
+        }
+        .prod-hero-img {
+            flex: 0 0 42%;
+        }
+        .prod-hero-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+        .prod-hero-text {
+            flex: 1;
+        }
+        .prod-hero-text h2 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #12344d;
+        }
+        .prod-hero-text .prod-tag {
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #0099cc;
+        }
+        .prod-hero-text p {
+            margin-top: 16px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #506270;
+        }
+        /* 三大关键参数 */
+        .prod-kpi {
+            display: flex;
+            gap: 24px;
+            margin-top: 28px;
+        }
+        .prod-kpi .kpi {
+            flex: 1;
+            background: #CFE2F5;
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+        .prod-kpi .kpi-num {
+            font-size: 30px;
+            font-weight: 800;
+            color: #0099cc;
+        }
+        .prod-kpi .kpi-label {
+            display: block;
+            margin-top: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #12344d;
+        }
+
+        /* ---------- 规格区（左结构图 + 右参数表格） ---------- */
+        .prod-spec {
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            margin-top: 40px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 40px;
+        }
+        .prod-spec-img {
+            flex: 0 0 38%;
+        }
+        .prod-spec-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+        .prod-spec-table {
+            flex: 1;
+        }
+        .prod-spec-table h3 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #12344d;
+        }
+        /* 参数表格 */
+        .prod-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        .prod-table col.col-key {
+            width: 35%;
+        }
+        .prod-table col.col-val {
+            width: 65%;
+        }
+        .prod-table td {
+            padding: 12px 6px;
+            border-bottom: 1px solid #e6eef6;
+            font-size: 15px;
+            color: #12344d;
+        }
+        .prod-table td:first-child {
+            font-weight: 600;
+            color: #506270;
+        }
+        /* OEM / ODM 提示 */
+        .prod-oem {
+            margin-top: 20px;
+            padding: 14px 16px;
+            background: #CFE2F5;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #12344d;
+            text-align: center;
+        }
+
+        /* ===================== 响应式 平板 <=992px ===================== */
+        @media (max-width:992px) {
+            header {
+                padding: 18px 24px;
+            }
+            nav {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                box-shadow: 0 6px 16px rgba(18,52,77,.08);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .3s ease;
+                z-index: 99;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 8px 24px;
+            }
+            nav li {
+                border-bottom: 1px solid #eef3f7;
+            }
+            nav li a {
+                display: block;
+                padding: 14px 0;
+            }
+            nav.menu-open {
+                max-height: 600px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .prod-section {
+                padding: 24px 24px 60px;
+            }
+            .prod-title {
+                font-size: 52px;
+            }
+            /* 主视觉与规格区改为上下堆叠 */
+            .prod-hero,
+            .prod-spec {
+                flex-direction: column;
+                gap: 28px;
+                padding: 28px;
+            }
+            .prod-hero-img,
+            .prod-spec-img {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+        }
+        /* ===================== 响应式 手机 <=768px ===================== */
+        @media (max-width:768px) {
+            header {
+                padding: 14px 16px;
+            }
+            .btn-quote-top {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            .prod-section {
+                padding: 18px 16px 40px;
+            }
+            .prod-title {
+                font-size: 38px;
+            }
+            .prod-hero,
+            .prod-spec {
+                padding: 20px;
+            }
+            .prod-hero-text h2 {
+                font-size: 26px;
+            }
+            /* KPI 三列改纵向 */
+            .prod-kpi {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航区域（Products 高亮） -->
+    <header>
+        <div class="logo-group">
+            <div class="logo-main">ENSU.</div>
+            <div class="logo-sub">MOUNTING TECHNOLOGY</div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about us.html">About Us</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="#">R&D</a></li>
+                <li><a href="manufacturing.html">Manufacturing</a></li>
+                <li><a href="quality.html">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" onclick="document.querySelector('.nav').classList.toggle('menu-open')">☰</div>
+        <button class="btn-quote-top">REQUEST A QUOTE</button>
+    </header>
+
+    <!-- 产品介绍 -->
+    <section class="prod-section">
+        <h1 class="prod-title">PRODUCTS</h1>
+
+        <!-- 产品主视觉区：左图（p1 黑色支架）+ 右文 -->
+        <div class="prod-hero">
+            <div class="prod-hero-img">
+                <img src="images/p1.png" alt="Ergonomic monitor mount">
+            </div>
+            <div class="prod-hero-text">
+                <div class="prod-tag">ENSU</div>
+                <h2>ERGONOMIC MONITOR MOUNT</h2>
+                <p>Multi-joint adjustable monitor arm with desk clamp fixing, smooth swivel, tilt and rotation for an ergonomic, space-saving workspace.</p>
+                <!-- 三大关键参数 -->
+                <div class="prod-kpi">
+                    <div class="kpi">
+                        <div class="kpi-num">17-35"</div>
+                        <span class="kpi-label">SCREEN SIZE</span>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-num">12 kg</div>
+                        <span class="kpi-label">MAX. LOAD</span>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-num">210-472mm</div>
+                        <span class="kpi-label">HEIGHT RANGE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 规格区：左结构图（p10 线稿）+ 右参数表格 -->
+        <div class="prod-spec">
+            <div class="prod-spec-img">
+                <img src="images/p10.png" alt="Mount structure and joint angles">
+            </div>
+            <div class="prod-spec-table">
+                <h3>SPECIFICATIONS</h3>
+                <table class="prod-table">
+                    <colgroup>
+                        <col class="col-key">
+                        <col class="col-val">
+                    </colgroup>
+                    <tbody>
+                        <tr><td>Screen Size</td><td>17-35"</td></tr>
+                        <tr><td>Max. Load</td><td>12 kg</td></tr>
+                        <tr><td>Swivel</td><td>±90°</td></tr>
+                        <tr><td>Rotation</td><td>±90°</td></tr>
+                        <tr><td>Tilt</td><td>+90° to -45°</td></tr>
+                        <tr><td>VESA</td><td>75×75 / 100×100 mm</td></tr>
+                        <tr><td>Height</td><td>210-472 mm</td></tr>
+                        <tr><td>Material</td><td>Steel / Aluminium / Plastic</td></tr>
+                    </tbody>
+                </table>
+                <div class="prod-oem">OEM / ODM CONFIGURATION AVAILABLE</div>
+            </div>
+        </div>
+
+        <!-- 第二款产品：p2 银灰色支架 -->
+        <div class="prod-hero">
+            <div class="prod-hero-img">
+                <img src="images/p2.png" alt="Silver monitor mount">
+            </div>
+            <div class="prod-hero-text">
+                <div class="prod-tag">ENSU</div>
+                <h2>SILVER MULTI-ARM MOUNT</h2>
+                <p>Machine-arm style multi-joint structure with cable management channel, offering flexible angle adjustment and sturdy support for daily office use.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

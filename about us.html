@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ENSU Mounting Technology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===================== 全局初始化 ===================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        button {
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===================== 顶部导航Header（与index.html一致） ===================== */
+        header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 48px;
+            background: #ffffff;
+        }
+        .logo-group {
+            line-height: 1;
+        }
+        .logo-main {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0099cc;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #556677;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        nav ul {
+            display: flex;
+            gap: 34px;
+        }
+        nav a {
+            color: #425a6b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #0099cc;
+        }
+        nav a.active {
+            color: #0099cc;
+            font-weight: 700;
+        }
+        .btn-quote-top {
+            background-color: #00b1d9;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .btn-quote-top:hover {
+            background: #009cbf;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #425a6b;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* ===================== About主视觉区块 ===================== */
+        .about {
+            background: #f7fafd;
+            padding: 80px 48px 70px;
+        }
+        .about-head {
+            max-width: 760px;
+            margin: 0 auto;              /* 容器水平居中 */
+            text-align: center;          /* 标题、副标题、段落全部居中 */
+        }
+        .about-head h1 {
+            font-size: 78px;
+            line-height: 1;
+            font-weight: 800;
+            color: #12344d;
+            letter-spacing: -1px;
+        }
+        .about-tagline {
+            margin-top: 20px;
+            font-size: 22px;            /* 副标题适当放大 */
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #00b1d9;
+        }
+        .about-head p {
+            margin: 26px auto 0;         /* 水平居中 */
+            font-size: 17px;
+            line-height: 1.7;
+            color: #506270;
+            max-width: 700px;
+            text-align: center;          /* 段落文字居中 */
+        }
+        /* 中部：全球业务布局图（z3.png） */
+        .about-map {
+            margin: 70px auto 0;
+            max-width: 1000px;
+        }
+        .about-map img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* 底部：企业实力三栏 */
+        .about-stats {
+            display: flex;
+            margin: 60px auto 0;         /* 三栏整体水平居中 */
+            border-top: 1px solid #c4d8e8;
+            max-width: 1000px;
+        }
+        .about-stat {
+            flex: 1;
+            padding-top: 30px;
+            padding-right: 50px;
+            position: relative;
+            text-align: center;          /* 每栏内容居中 */
+        }
+        .about-stat:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;                    /* 分隔线垂直居中 */
+            transform: translateY(-50%);
+            width: 1px;
+            height: 42px;
+            background: #c4d8e8;
+        }
+        .about-stat h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #12344d;
+        }
+        .about-stat span {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #506270;
+        }
+
+        /* ===================== 响应式 平板 <=992px ===================== */
+        @media (max-width:992px) {
+            header {
+                padding: 18px 24px;
+            }
+            nav {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                box-shadow: 0 6px 16px rgba(18,52,77,.08);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .3s ease;
+                z-index: 99;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 8px 24px;
+            }
+            nav li {
+                border-bottom: 1px solid #eef3f7;
+            }
+            nav li a {
+                display: block;
+                padding: 14px 0;
+            }
+            nav.menu-open {
+                max-height: 600px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .about {
+                padding: 60px 24px 50px;
+            }
+            .about-head h1 {
+                font-size: 58px;
+            }
+            .about-map {
+                margin-top: 50px;
+            }
+        }
+        /* ===================== 响应式 手机 <=768px ===================== */
+        @media (max-width:768px) {
+            header {
+                padding: 14px 16px;
+            }
+            .btn-quote-top {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            .about {
+                padding: 40px 16px 40px;
+            }
+            .about-head h1 {
+                font-size: 44px;
+            }
+            .about-tagline {
+                font-size: 16px;
+            }
+            .about-head p {
+                font-size: 15px;
+            }
+            .about-map {
+                margin-top: 36px;
+            }
+            .about-stats {
+                flex-direction: column;
+                gap: 26px;
+            }
+            .about-stat {
+                padding-right: 0;
+            }
+            .about-stat:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航区域（About Us 高亮） -->
+    <header>
+        <div class="logo-group">
+            <div class="logo-main">ENSU.</div>
+            <div class="logo-sub">MOUNTING TECHNOLOGY</div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html" class="active">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#">R&D</a></li>
+                <li><a href="manufacturing.html">Manufacturing</a></li>
+                <li><a href="quality.html">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" onclick="document.querySelector('.nav').classList.toggle('menu-open')">☰</div>
+        <button class="btn-quote-top">REQUEST A QUOTE</button>
+    </header>
+
+    <section class="about">
+        <div class="about-head">
+            <h1>ABOUT ENSU</h1>
+            <div class="about-tagline">ENGINEERING · MANUFACTURING · GLOBAL SERVICE</div>
+            <p>Founded in 2002, Ningbo Ensu Technology is a professional mounting solution provider integrating engineering, manufacturing, export and after-sales service.</p>
+        </div>
+
+        <!-- 全球业务布局图：替换为 z3.png（原内联SVG地图已删除） -->
+        <div class="about-map">
+            <img src="images/z3.png" alt="Ensu global business network">
+        </div>
+
+        <div class="about-stats">
+            <div class="about-stat">
+                <h3>20+</h3>
+                <span>YEARS EXPERIENCE</span>
+            </div>
+            <div class="about-stat">
+                <h3>5+</h3>
+                <span>EXPORT MARKETS</span>
+            </div>
+            <div class="about-stat">
+                <h3>OEM / ODM</h3>
+                <span>ENGINEERING SUPPORT</span>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

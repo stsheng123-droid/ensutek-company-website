@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality - ENSU Mounting Technology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===================== 全局初始化 ===================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        button {
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===================== 顶部导航Header（与各页一致） ===================== */
+        header {
+            position: relative;             /* 移动端下拉菜单的定位参照 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 48px;
+            background: #ffffff;
+        }
+        .logo-group {
+            line-height: 1;
+        }
+        .logo-main {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0099cc;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #556677;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        nav ul {
+            display: flex;
+            gap: 34px;
+        }
+        nav a {
+            color: #425a6b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #0099cc;
+        }
+        nav a.active {
+            color: #0099cc;
+            font-weight: 700;
+        }
+        .btn-quote-top {
+            background-color: #00b1d9;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .btn-quote-top:hover {
+            background: #009cbf;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #425a6b;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* ===================== 顶部区：与index.html背景一致 + 一行大字 + q1.png ===================== */
+        .quality {
+            background: #E8F1FF;           /* 背景色与 index.html 主视觉一致（浅蓝） */
+            padding: 28px 96px 70px;       /* 左右边距放大，内容距页面两边更远（参考图留白） */
+        }
+        .q-title {
+            font-size: 68px;               /* 字体比较大 */
+            font-weight: 800;
+            line-height: 1;
+            color: #12344d;
+            letter-spacing: -1px;
+        }
+        .q-img {
+            margin-top: 44px;
+            display: flex;
+            justify-content: center;
+        }
+        .q-img img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===================== QUALITY CONTROL 三板块（q2 / q3 / q4） ===================== */
+        .qc-section {
+            background: #E8F1FF;           /* 与顶部区背景统一 */
+            padding: 0 96px 20px;          /* 左右边距放大，白色卡片离页面两边更远 */
+        }
+        .qc-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+            color: #12344d;
+            letter-spacing: -1px;
+        }
+        .qc-intro {
+            margin-top: 18px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #506270;
+        }
+        .qc-intro + .qc-intro {
+            margin-top: 6px;
+        }
+        .qc-list {
+            margin-top: 48px;
+        }
+        .qc-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+        }
+        .qc-item img {
+            width: 340px;
+            max-width: 40%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        .qc-text {
+            flex: 1;
+        }
+        .qc-num {
+            font-size: 22px;
+            font-weight: 800;
+            color: #00b1d9;
+        }
+        .qc-text h3 {
+            margin-top: 8px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #12344d;
+        }
+        .qc-text p {
+            margin-top: 12px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #506270;
+        }
+
+        /* ===================== 下方新增：QUALITY SYSTEM & SUPPORT ===================== */
+        .qss-section {
+            background: #E8F1FF;
+            padding: 0 96px 80px;          /* 左右边距放大，两个边框卡片离页面两边更远 */
+        }
+        .qss-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+            color: #12344d;
+            letter-spacing: -1px;
+        }
+        /* 两个卡片：左深蓝 + 右白色 */
+        .qss-cards {
+            display: flex;
+            gap: 28px;
+            margin-top: 44px;
+        }
+        .qss-card {
+            flex: 1;
+            border-radius: 14px;
+            padding: 44px 32px;
+        }
+        .qss-card.dark {
+            background: #12344d;           /* 深蓝卡片 */
+            color: #ffffff;
+        }
+        .qss-card.light {
+            background: #ffffff;           /* 白色卡片 */
+            color: #12344d;
+            box-shadow: 0 4px 14px rgba(18,52,77,.06);
+        }
+        .qss-big {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .qss-label {
+            margin-top: 12px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .qss-sub {
+            margin-top: 8px;
+            font-size: 15px;
+            opacity: .85;
+        }
+        /* 底部流程一行 */
+        .qss-flow {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            color: #12344d;
+        }
+
+        /* ===================== 响应式 平板 <=992px ===================== */
+        @media (max-width:992px) {
+            header {
+                padding: 18px 24px;
+            }
+            nav {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                box-shadow: 0 6px 16px rgba(18,52,77,.08);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .3s ease;
+                z-index: 99;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 8px 24px;
+            }
+            nav li {
+                border-bottom: 1px solid #eef3f7;
+            }
+            nav li a {
+                display: block;
+                padding: 14px 0;
+            }
+            nav.menu-open {
+                max-height: 600px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .quality {
+                padding: 24px 24px 50px;
+            }
+            .q-title {
+                font-size: 52px;
+            }
+            .qc-section,
+            .qss-section {
+                padding: 0 24px 50px;
+            }
+            .qc-title,
+            .qss-title {
+                font-size: 44px;
+            }
+            .qc-item {
+                gap: 24px;
+                padding: 24px;
+            }
+            .qc-item img {
+                width: 280px;
+            }
+        }
+        /* ===================== 响应式 手机 <=768px ===================== */
+        @media (max-width:768px) {
+            header {
+                padding: 14px 16px;
+            }
+            .btn-quote-top {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            .quality {
+                padding: 18px 16px 40px;
+            }
+            .q-title {
+                font-size: 38px;
+            }
+            .q-img {
+                margin-top: 28px;
+            }
+            .qc-section,
+            .qss-section {
+                padding: 0 16px 40px;
+            }
+            .qc-title,
+            .qss-title {
+                font-size: 34px;
+            }
+            /* QC 板块改为上下布局：图片在上，文字在下 */
+            .qc-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+                padding: 20px;
+            }
+            .qc-item img {
+                width: 100%;
+                max-width: 100%;
+            }
+            /* QSS 双卡片改为纵向堆叠 */
+            .qss-cards {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .qss-card {
+                padding: 32px 24px;
+            }
+            .qss-big {
+                font-size: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航区域（Quality 高亮） -->
+    <header>
+        <div class="logo-group">
+            <div class="logo-main">ENSU.</div>
+            <div class="logo-sub">MOUNTING TECHNOLOGY</div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about us.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#">R&D</a></li>
+                <li><a href="manufacturing.html">Manufacturing</a></li>
+                <li><a href="quality.html" class="active">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" onclick="document.querySelector('.nav').classList.toggle('menu-open')">☰</div>
+        <button class="btn-quote-top">REQUEST A QUOTE</button>
+    </header>
+
+    <!-- 顶部区：一行大字标题 + 一张 q1.png -->
+    <section class="quality">
+        <h1 class="q-title">QUALITY ASSURANCE</h1>
+        <div class="q-img">
+            <img src="images/q1.png" alt="Quality control framework">
+        </div>
+    </section>
+
+    <!-- QUALITY CONTROL 三板块（q2 / q3 / q4） -->
+    <section class="qc-section">
+        <h2 class="qc-title">QUALITY CONTROL</h2>
+        <p class="qc-intro">Quality control covers incoming materials, key production stages and finished products.</p>
+        <p class="qc-intro">Dedicated in-house equipment supports dimensional, functional and environmental verification.</p>
+
+        <div class="qc-list">
+            <!-- 01 来料与尺寸检测 -->
+            <div class="qc-item">
+                <img src="images/q2.png" alt="Incoming & Dimensional Inspection">
+                <div class="qc-text">
+                    <div class="qc-num">01</div>
+                    <h3>Incoming &amp; Dimensional Inspection</h3>
+                    <p>Critical dimensions, material condition and first-piece samples are checked before production. CMM and optical measurement equipment support accurate verification.</p>
+                </div>
+            </div>
+            <!-- 02 功能与性能验证 -->
+            <div class="qc-item">
+                <img src="images/q3.png" alt="Functional & Performance Verification">
+                <div class="qc-text">
+                    <div class="qc-num">02</div>
+                    <h3>Functional &amp; Performance Verification</h3>
+                    <p>Gas spring force, leakage and operating performance are checked using dedicated fixtures to support stable product performance before final assembly and shipment.</p>
+                </div>
+            </div>
+            <!-- 03 可靠性与环境测试 -->
+            <div class="qc-item">
+                <img src="images/q4.png" alt="Reliability & Environmental Testing">
+                <div class="qc-text">
+                    <div class="qc-num">03</div>
+                    <h3>Reliability &amp; Environmental Testing</h3>
+                    <p>Salt spray, thermal shock, temperature and humidity tests evaluate coating durability and product reliability under different operating and transportation conditions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下方新增：QUALITY SYSTEM & SUPPORT -->
+    <section class="qss-section">
+        <h2 class="qss-title">QUALITY SYSTEM &amp; SUPPORT</h2>
+
+        <div class="qss-cards">
+            <!-- 左：深蓝卡片，20+ 质量专业人员 -->
+            <div class="qss-card dark">
+                <div class="qss-big">20+</div>
+                <div class="qss-label">QUALITY PROFESSIONALS</div>
+                <div class="qss-sub">Management &amp; inspection team</div>
+            </div>
+            <!-- 右：白色卡片，ISO 9001 认证 -->
+            <div class="qss-card light">
+                <div class="qss-big" style="color:#0099cc;">ISO 9001</div>
+                <div class="qss-label">QUALITY MANAGEMENT SYSTEM</div>
+            </div>
+        </div>
+
+        <!-- 底部流程一行 -->
+        <div class="qss-flow">INCOMING INSPECTION · PROCESS CONTROL · FINAL INSPECTION · PRE-SHIPMENT CHECK</div>
+    </section>
+</body>
+</html>

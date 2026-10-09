@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 移动端视口配置，响应式网页必备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENSU - Mounting Technology</title>
+    <!-- 引入Inter谷歌字体，和参考页面字体保持一致 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===================== 全局初始化 ===================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        button {
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===================== 核心变量 ===================== */
+        :root {
+            /* 文字最左侧到容器左边缘的距离（= hero 区左侧 padding） */
+            --text-left-gap: 88px;
+        }
+
+        /* ===================== 顶部导航Header ===================== */
+        header {
+            position: relative;             /* 移动端下拉菜单的定位参照 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 48px;
+            background: #ffffff;
+        }
+        .logo-group {
+            line-height: 1;
+        }
+        .logo-main {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0099cc;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #556677;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        nav ul {
+            display: flex;
+            gap: 34px;
+        }
+        nav a {
+            color: #425a6b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #0099cc;
+        }
+        .btn-quote-top {
+            background-color: #00b1d9;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .btn-quote-top:hover {
+            background: #009cbf;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #425a6b;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* ===================== Hero主视觉区块（文字在左） ===================== */
+        .hero {
+            position: relative;                 /* 作为产品图绝对定位的参照 */
+            display: flex;
+            align-items: center;
+            /* 左侧padding即“文字最左侧到左边缘的距离”，与变量联动 */
+            padding: 70px var(--text-left-gap) 90px;
+            background: #E8F1FF;
+            overflow: hidden;
+            min-height: 620px;
+        }
+        .hero-text {
+            max-width: 540px;
+            position: relative;
+            z-index: 2;                         /* 文字压在图片上方 */
+        }
+        .tagline {
+            color: #00b1d9;
+            font-size: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-size: 72px;
+            line-height: 1.02;
+            font-weight: 800;
+        }
+        .line1 {
+            color: #12344d;
+        }
+        .line2 {
+            color: #00b1d9;
+        }
+        .line3 {
+            color: #12344d;
+        }
+        .hero p {
+            margin: 24px 0 32px;
+            color: #506270;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .btn-explore {
+            background: #12344d;
+            color: #fff;
+            padding: 14px 28px;
+            font-weight: 700;
+            border: none;
+        }
+        .btn-explore:hover {
+            background: #0b2233;
+        }
+        .btn-quote {
+            background: transparent;
+            color: #12344d;
+            border: 1px solid #12344d;
+            padding: 14px 28px;
+            font-weight: 700;
+        }
+        .btn-quote:hover {
+            background: #12344d;
+            color: #fff;
+        }
+        .stats-row {
+            display: flex;
+            border-top: 1px solid #c4d8e8;
+        }
+        .stat-item {
+            padding-top: 28px;
+            padding-right: 70px;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 28px;
+            width: 1px;
+            height: 38px;
+            background: #c4d8e8;
+        }
+        .stat-item h3 {
+            font-size: 24px;
+            color: #12344d;
+            font-weight: 700;
+        }
+        .stat-item span {
+            display: block;
+            font-size: 12px;
+            color: #506270;
+            margin-top: 4px;
+        }
+
+        /* ===== Hero区产品图 z1.png：右半边水平居中 =====
+           容器只占右半边（width:50%），flex 让图片在
+           右半区内水平居中、垂直居中，不贴边、不溢出 */
+        .hero-img-wrap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;                  /* 右半边 */
+            height: 100%;
+            display: flex;
+            align-items: center;         /* 垂直居中 */
+            justify-content: center;     /* 水平居中 */
+            z-index: 1;
+            line-height: 0;
+        }
+        /* multiply：白色区域与父背景融合模拟透明；换成真透明PNG后删除此行 */
+        .hero-img {
+            width: auto;
+            height: auto;
+            max-width: 100%;             /* 超宽时等比收缩，不溢出右半边 */
+            max-height: 100%;
+            display: block;
+            mix-blend-mode: multiply;
+        }
+
+        /* ============================================================
+           Partner板块（ONE PARTNER EVERY CRITICAL STEP）
+           ============================================================ */
+        .partner {
+            --p-img-height: 620px;              /* 产品图显示高度上限 */
+            position: relative;
+            overflow: hidden;
+            min-height: 900px;
+            background: radial-gradient(ellipse at 50% 48%, #c6e5fe 0%, #b0d2f0 55%, #a9c8e8 100%);
+        }
+        /* ===== Partner区产品图 z2.png：左半边水平居中 =====
+           容器只占左半边（width:50%），flex 让图片在
+           左半区内水平居中、垂直居中，不贴边、不溢出 */
+        .partner-img-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;                  /* 左半边 */
+            height: 100%;
+            display: flex;
+            align-items: center;         /* 垂直居中 */
+            justify-content: center;     /* 水平居中 */
+            z-index: 1;
+            line-height: 0;
+        }
+        .partner-img {
+            width: auto;
+            height: auto;
+            max-width: 100%;             /* 超宽时等比收缩，不溢出左半边 */
+            max-height: var(--p-img-height); /* 高度不超过设定上限 */
+            display: block;
+            mix-blend-mode: multiply;    /* 换成真透明PNG后删除此行 */
+        }
+        /* 右侧文字栏 */
+        .partner-text {
+            position: relative;
+            z-index: 2;
+            width: 45%;
+            margin-left: auto;
+            padding: 225px 90px 260px 0;
+        }
+        .partner-text .tagline {
+            color: #06d7fb;
+            margin-bottom: 20px;
+        }
+        .partner h2 {
+            font-size: 65px;
+            line-height: 1.03;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .p-line1 {
+            color: #0039af;
+        }
+        .p-line2 {
+            color: #06d7fb;
+        }
+        .p-line3 {
+            color: #0039af;
+        }
+        .p-stats {
+            display: flex;
+            margin-top: 70px;
+        }
+        .p-stat-item {
+            padding-right: 60px;
+            position: relative;
+        }
+        .p-stat-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 70px;
+            background: #93b6e2;
+        }
+        .p-stat-item h3 {
+            font-size: 26px;
+            color: #1d4fd0;
+            font-weight: 700;
+        }
+        .p-stat-item span {
+            display: block;
+            font-size: 15px;
+            color: #6f99d2;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===================== 响应式 平板 <=992px ===================== */
+        @media (max-width:992px) {
+            header {
+                padding: 18px 24px;
+            }
+            /* PC横排导航隐藏，汉堡显示，点击展开纵向下拉面板 */
+            nav {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                box-shadow: 0 6px 16px rgba(18,52,77,.08);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .3s ease;
+                z-index: 99;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 8px 24px;
+            }
+            nav li {
+                border-bottom: 1px solid #eef3f7;
+            }
+            nav li a {
+                display: block;
+                padding: 14px 0;
+            }
+            nav.menu-open {
+                max-height: 600px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero {
+                flex-direction: column-reverse;
+                padding: 40px 24px;
+                min-height: 0;
+            }
+            /* 平板：图片回到文档流，居中显示在文字上方 */
+            .hero-img-wrap {
+                position: static;
+                width: auto;
+                height: auto;
+                display: block;
+                text-align: center;
+                margin: 0 auto 32px;
+            }
+            .hero-img {
+                width: 480px;
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 54px;
+            }
+            .stats-row {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+            .partner {
+                min-height: 0;
+            }
+            .partner-img-wrap {
+                position: static;
+                width: auto;
+                height: auto;
+                display: block;
+                text-align: center;
+                padding-top: 48px;
+            }
+            .partner-img {
+                width: 420px;
+                max-width: 85%;
+                height: auto;
+            }
+            .partner-text {
+                width: 100%;
+                padding: 48px 24px 60px;
+            }
+            .partner h2 {
+                font-size: 48px;
+            }
+        }
+        /* ===================== 响应式 手机 <=768px ===================== */
+        @media (max-width:768px) {
+            header {
+                padding: 14px 16px;
+            }
+            .btn-quote-top {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            .hero {
+                padding: 32px 16px;
+            }
+            .hero h1 {
+                font-size: 44px;
+            }
+            .hero-img {
+                width: 320px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .stats-row {
+                flex-direction: column;
+            }
+            .partner-img {
+                width: 300px;
+            }
+            .partner h2 {
+                font-size: 36px;
+            }
+            .p-stats {
+                flex-direction: column;
+                gap: 28px;
+            }
+            .p-stat-item {
+                padding-right: 0;
+            }
+            .p-stat-item:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航区域 -->
+    <header>
+        <div class="logo-group">
+            <div class="logo-main">ENSU.</div>
+            <div class="logo-sub">MOUNTING TECHNOLOGY</div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about us.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#">R&D</a></li>
+                <li><a href="manufacturing.html">Manufacturing</a></li>
+                <li><a href="quality.html">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- 移动端汉堡图标，点击展开下拉导航 -->
+        <div class="menu-toggle" onclick="document.querySelector('.nav').classList.toggle('menu-open')">☰</div>
+        <button class="btn-quote-top">REQUEST A QUOTE</button>
+    </header>
+
+    <!-- Hero主视觉：文字在左，z1.png右半边水平居中 -->
+    <section class="hero">
+        <div class="hero-text">
+            <div class="tagline">ENGINEERING · MANUFACTURING · EXPORT</div>
+            <h1>
+                <div class="line1">OEM / ODM</div>
+                <div class="line2">MONITOR ARM</div>
+                <div class="line3">MANUFACTURER</div>
+            </h1>
+            <p>From product design and prototyping to manufacturing and quality control, ENSU delivers reliable monitor mounting solutions for global partners.</p>
+            <div class="hero-buttons">
+                <button class="btn-explore">EXPLORE PRODUCTS</button>
+                <button class="btn-quote">REQUEST A QUOTE</button>
+            </div>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <span>YEARS EXPERIENCE</span>
+                </div>
+                <div class="stat-item">
+                    <h3>5+</h3>
+                    <span>EXPORT MARKETS</span>
+                </div>
+                <div class="stat-item">
+                    <h3>OEM / ODM</h3>
+                    <span>ENGINEERING SUPPORT</span>
+                </div>
+            </div>
+        </div>
+        <!-- 右侧产品图 z1.png（右半边水平居中） -->
+        <div class="hero-img-wrap">
+            <img class="hero-img" src="images/z1.png" alt="Monitor Arm">
+        </div>
+    </section>
+
+    <!-- Partner板块：z2.png左半边水平居中，文字在右 -->
+    <section class="partner">
+        <div class="partner-img-wrap">
+            <img class="partner-img" src="images/z2.png" alt="White Monitor Arm">
+        </div>
+        <div class="partner-text">
+            <div class="tagline">ENGINEERING · MANUFACTURING · EXPORT</div>
+            <h2>
+                <div class="p-line1">ONE PARTNER</div>
+                <div class="p-line2">EVERY CRITICAL</div>
+                <div class="p-line3">STEP</div>
+            </h2>
+            <div class="p-stats">
+                <div class="p-stat-item">
+                    <h3>ISO 9001</h3>
+                    <span>CERTIFIED QUALITY SYSTEM</span>
+                </div>
+                <div class="p-stat-item">
+                    <h3>OEM/ODM</h3>
+                    <span>END‑TO‑END SUPPORT</span>
+                </div>
+                <div class="p-stat-item">
+                    <h3>20+</h3>
+                    <span>QUALITY PROFESSIONALS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
